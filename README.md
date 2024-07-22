@@ -1,16 +1,18 @@
-## Patient Management Systems Webapp
-
-The Patient Management Systems Webapp is a comprehensive digital solution designed to streamline healthcare operations. It offers an intuitive interface for managing patient records, appointments, and medical histories, ensuring easy access and efficient data handling. This web application enhances communication between healthcare providers and patients, supports seamless integration with other medical systems, and maintains strict compliance with privacy regulations. With features like automated reminders, real-time updates, and analytics, it optimizes workflow, reduces administrative burdens, and improves patient care. Tailored for hospitals, clinics, and private practices, the webapp delivers a robust and reliable platform for modern healthcare management.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-git clone
+First, run the development server:
 
-npm i 
-
+```bash
 npm run dev
-
-
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

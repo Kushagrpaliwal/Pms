@@ -1,4 +1,4 @@
-"use server";
+
 
 import { revalidatePath } from "next/cache";
 import { ID, Query } from "node-appwrite";
@@ -35,31 +35,15 @@ export const createAppointment = async (
 //  GET RECENT APPOINTMENTS
 export const getRecentAppointmentList = async () => {
   try {
+    if (!DB_ID || !APPOINTMENT_COLLECTION_ID) {
+      throw new Error("Environment variables DB_ID or APPOINTMENT_COLLECTION_ID are not set.");
+    }
+
     const appointments = await databases.listDocuments(
-      DB_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      DB_ID,
+      APPOINTMENT_COLLECTION_ID,
       [Query.orderDesc("$createdAt")]
     );
-
-    // const scheduledAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "scheduled");
-
-    // const pendingAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "pending");
-
-    // const cancelledAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "cancelled");
-
-    // const data = {
-    //   totalCount: appointments.total,
-    //   scheduledCount: scheduledAppointments.length,
-    //   pendingCount: pendingAppointments.length,
-    //   cancelledCount: cancelledAppointments.length,
-    //   documents: appointments.documents,
-    // };
 
     const initialCounts = {
       scheduledCount: 0,
@@ -88,7 +72,7 @@ export const getRecentAppointmentList = async () => {
     const data = {
       totalCount: appointments.total,
       ...counts,
-      documents: appointments.documents, 
+      documents: appointments.documents,
     };
 
     return parseStringify(data);
@@ -97,8 +81,10 @@ export const getRecentAppointmentList = async () => {
       "An error occurred while retrieving the recent appointments:",
       error
     );
+    return null; // Return a value to avoid unhandled promise rejection
   }
 };
+
 
 //  SEND SMS NOTIFICATION
 export const sendSMSNotification = async (userId: string, content: string) => {
