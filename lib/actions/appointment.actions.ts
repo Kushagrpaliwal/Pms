@@ -1,4 +1,4 @@
-
+'use server
 
 import { revalidatePath } from "next/cache";
 import { ID, Query } from "node-appwrite";
